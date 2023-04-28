@@ -20,3 +20,18 @@ jobs:
         run: vercel inspect --token=${{ secrets.VERCEL_TOKEN }}
       - name: Pull Vercel Environment Information
         run: vercel ls --token=${{ secrets.VERCEL_TOKEN }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Deploy with Vercel
+        uses: amondnet/vercel-action@v20
+        id: vercel
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Check
+        run: echo ${{ steps.vercel }}
